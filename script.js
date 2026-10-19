@@ -1,200 +1,162 @@
 
 "use strict";
 
-/* SCREEN NAVIGATION */
+// Navigate between invitation screens
 function nextScreen(screenId) {
-  const screens = document.querySelectorAll(".screen");
-  const target = document.getElementById(screenId);
+    const next = document.getElementById(screenId);
 
-  if (!target) {
-    console.error("Screen not found:", screenId);
-    return;
-  }
+    if (!next) {
+        console.error("Invitation screen not found:", screenId);
+        return;
+    }
 
-  screens.forEach((screen) => {
-    screen.classList.remove("active");
-    screen.setAttribute("aria-hidden", "true");
-  });
+    const current = document.querySelector(".screen.active");
 
-  target.classList.add("active");
-  target.setAttribute("aria-hidden", "false");
+    if (current === next) return;
 
-  window.scrollTo({ top: 0, behavior: "smooth" });
+    if (current) {
+        current.classList.remove("active");
+    }
+
+    next.classList.add("active");
+
+    // Restart the entrance animation
+    void next.offsetWidth;
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
 }
 
-/* WEDDING MUSIC */
-function updateMusicButton(isPlaying) {
-  const status = document.getElementById("music-status");
-  const button = document.getElementById("music-toggle");
 
-  if (status) status.textContent = isPlaying ? "Music On" : "Music Off";
+function sendRSVP(choice, contact) {
+    const response = choice === "accept"
+        ? "Joyfully accept"
+        : "Regretfully decline";
 
-  if (button) {
-    button.setAttribute(
-      "aria-label",
-      isPlaying ? "Pause wedding music" : "Play wedding music"
-    );
-    button.setAttribute("aria-pressed", String(isPlaying));
-  }
+    const contacts = {
+        francis: "233247927914",
+        mabel: "233245755255"
+    };
+
+    const phoneNumber = contacts[contact];
+
+    if (!phoneNumber) {
+        alert("Please select a valid RSVP contact.");
+        return;
+    }
+
+    const message =
+        `Hello ${contact === "francis" ? "Francis" : "Mabel"}!\n\n` +
+        `Regarding the wedding of Francis and Mabel on ` +
+        `Friday, 30 October 2026 at 10:00 AM:\n\n` +
+        `My RSVP: ${response}.\n\n` +
+        `Best wishes!`;
+
+    const whatsappURL =
+        `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+        window.open(whatsappURL, "_blank", "noopener,noreferrer");
+
+        const farewellMessage = document.getElementById("farewell-message");
+        
+        if (farewellMessage) {
+            farewellMessage.textContent =
+                choice === "accept"
+                    ? "Thank you for confirming! We look forward to celebrating with you."
+                    : "Thank you for letting us know. With love and best wishes from Francis and Mabel.";
+        }
+        
+        nextScreen("farewell");}
+
+
+// Wedding countdown: 30 October 2026, 10:00 AM Ghana time (UTC)
+function updateCountdown() {
+    const countdown = document.getElementById("countdown");
+
+    if (!countdown) return;
+
+    const weddingTime = Date.UTC(2026, 9, 30, 10, 0, 0);
+    const now = Date.now();
+    const difference = weddingTime - now;
+
+    if (difference <= 0) {
+        countdown.innerHTML = `
+            <div class="countdown-message">
+                Our special day is here! ♥
+            </div>
+        `;
+        return;
+    }
+
+    const days = Math.floor(difference / 86400000);
+    const hours = Math.floor((difference % 86400000) / 3600000);
+    const minutes = Math.floor((difference % 3600000) / 60000);
+    const seconds = Math.floor((difference % 60000) / 1000);
+
+    countdown.innerHTML = `
+        <div class="countdown-box">
+            <span class="countdown-number">${days}</span>
+            <span class="countdown-label">Days</span>
+        </div>
+
+        <div class="countdown-box">
+            <span class="countdown-number">${hours}</span>
+            <span class="countdown-label">Hours</span>
+        </div>
+
+        <div class="countdown-box">
+            <span class="countdown-number">${minutes}</span>
+            <span class="countdown-label">Minutes</span>
+        </div>
+
+        <div class="countdown-box">
+            <span class="countdown-number">${seconds}</span>
+            <span class="countdown-label">Seconds</span>
+        </div>
+    `;
 }
 
-async function startWeddingMusic() {
-  const music = document.getElementById("wedding-music");
-  if (!music) return;
+// Start and refresh countdown every second
+updateCountdown();
+window.setInterval(updateCountdown, 1000);
+// Wedding background music
+function startWeddingMusic() {
+    const music = document.getElementById("wedding-music");
 
-  music.volume = 0.7;
+    if (!music) {
+        console.error("Wedding music element not found.");
+        return;
+    }
 
-  try {
-    await music.play();
-    updateMusicButton(true);
-  } catch (error) {
-    console.warn("Music could not start:", error);
-    updateMusicButton(false);
-  }
+    music.volume = 0.7;
+
+    music.play()
+        .then(() => {
+            console.log("Wedding music is playing.");
+        })
+        .catch((error) => {
+            console.error("Music playback failed:", error);
+        });
 }
 
 function toggleWeddingMusic() {
-  const music = document.getElementById("wedding-music");
-  if (!music) return;
+    const music = document.getElementById("wedding-music");
+    const status = document.getElementById("music-status");
+    const button = document.getElementById("music-toggle");
 
-  if (music.paused) {
-    startWeddingMusic();
-  } else {
-    music.pause();
-    updateMusicButton(false);
-  }
+    if (!music || !status || !button) return;
+
+    if (music.paused) {
+        startWeddingMusic();
+
+        status.textContent = "Music On";
+        button.setAttribute("aria-label", "Mute wedding music");
+    } else {
+        music.pause();
+
+        status.textContent = "Music Off";
+        button.setAttribute("aria-label", "Play wedding music");
+    }
 }
-
-function openWeddingInvitation() {
-  nextScreen("couple");
-  startWeddingMusic();
-}
-
-/* WEDDING COUNTDOWN */
-function updateCountdown() {
-  const days = document.getElementById("days");
-  const hours = document.getElementById("hours");
-  const minutes = document.getElementById("minutes");
-  const seconds = document.getElementById("seconds");
-
-  if (!days || !hours || !minutes || !seconds) return;
-
-  // Ghana local time is UTC+00:00.
-  const weddingDate = new Date("2026-10-30T10:00:00+00:00");
-  const difference = weddingDate.getTime() - Date.now();
-
-  if (difference <= 0) {
-    days.textContent = "0";
-    hours.textContent = "00";
-    minutes.textContent = "00";
-    seconds.textContent = "00";
-    return;
-  }
-
-  days.textContent = String(Math.floor(difference / 86400000));
-  hours.textContent = String(
-    Math.floor((difference % 86400000) / 3600000)
-  ).padStart(2, "0");
-  minutes.textContent = String(
-    Math.floor((difference % 3600000) / 60000)
-  ).padStart(2, "0");
-  seconds.textContent = String(
-    Math.floor((difference % 60000) / 1000)
-  ).padStart(2, "0");
-}
-
-/* RSVP THROUGH WHATSAPP */
-function sendRSVP(response) {
-  const nameInput = document.getElementById("guest-name");
-
-  if (!nameInput) return;
-
-  const guestName = nameInput.value.trim();
-
-  if (!guestName) {
-    alert("Please enter your full name first.");
-    nameInput.focus();
-    return;
-  }
-
-  const answer =
-    response === "accept"
-      ? "Joyfully accepts"
-      : "Regretfully declines";
-
-  const message =
-    "Hello Francis and Mabel,\n\n" +
-    "My name is " + guestName + ".\n" +
-    "I " + answer +
-    " your wedding invitation on Friday, 30 October 2026 at 10:00 AM.\n\n" +
-    "Venue: Agyementi, near Kitase, Eastern Region, Ghana.\n\n" +
-    "Best wishes to you both!";
-
-  const whatsappURL =
-    "https://wa.me/?text=" + encodeURIComponent(message);
-
-  const farewellMessage = document.getElementById("farewell-message");
-
-  if (farewellMessage) {
-    farewellMessage.textContent =
-      "Thank you, " + guestName +
-      ". Your RSVP message is ready. Please send it through WhatsApp.";
-  }
-
-  nextScreen("farewell");
-
-  const whatsappWindow = window.open(whatsappURL, "_blank");
-
-  if (!whatsappWindow) {
-    window.location.href = whatsappURL;
-  }
-}
-
-/* INITIALIZE THE WEBSITE */
-document.addEventListener("DOMContentLoaded", function () {
-  console.log("Francis & Mabel wedding website loaded successfully.");
-
-  document.querySelectorAll(".screen").forEach((screen) => {
-    screen.setAttribute(
-      "aria-hidden",
-      screen.classList.contains("active") ? "false" : "true"
-    );
-  });
-
-  const openButton = document.getElementById("open-invitation");
-  const musicButton = document.getElementById("music-toggle");
-  const music = document.getElementById("wedding-music");
-
-  if (openButton) {
-    openButton.addEventListener("click", openWeddingInvitation);
-  }
-
-  if (musicButton) {
-    musicButton.addEventListener("click", toggleWeddingMusic);
-  }
-
-  document.querySelectorAll("[data-next]").forEach((button) => {
-    button.addEventListener("click", function () {
-      nextScreen(button.dataset.next);
-    });
-  });
-
-  document.querySelectorAll("[data-rsvp]").forEach((button) => {
-    button.addEventListener("click", function () {
-      sendRSVP(button.dataset.rsvp);
-    });
-  });
-
-  if (music) {
-    music.addEventListener("play", () => updateMusicButton(true));
-    music.addEventListener("pause", () => updateMusicButton(false));
-
-    music.addEventListener("error", () => {
-      console.error("Music file not found. Check music/romantic.mp3.");
-      updateMusicButton(false);
-    });
-  }
-
-  updateCountdown();
-  window.setInterval(updateCountdown, 1000);
-});
