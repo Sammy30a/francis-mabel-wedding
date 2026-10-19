@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f8f1e7">
+  <meta name="description" content="You are warmly invited to celebrate the wedding of Francis and Mabel on 30 October 2026.">
+  <title>Francis & Mabel | Wedding Invitation</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main>
+    <section class="screen active" id="welcome">
+      <div class="welcome-card">
+        <p class="eyebrow">A CELEBRATION OF LOVE</p>
+        <div class="ornament">F <span>&</span> M</div>
+        <p class="welcome-copy">Together with our families,</p>
+        <h1>Francis <span>&</span> Mabel</h1>
+        <p class="welcome-copy">invite you to share in the joy of their wedding.</p>
+        <div class="small-divider"></div>
+        <p class="date-line">FRIDAY · 30 OCTOBER 2026</p>
+        <button class="primary-button" id="open-invitation">Open Invitation <span>→</span></button>
+        <p class="bottom-note">A new chapter. A lifetime of love.</p>
+      </div>
+    </section>
+
+    <section class="screen" id="couple">
+      <div class="content-card">
+        <p class="eyebrow">WITH LOVE AND GRATITUDE</p>
+        <h2>Two Hearts, <em>One Journey</em></h2>
+        <p class="body-copy">With grateful hearts and joyful spirits, we invite you to witness the beginning of our forever.</p>
+        <div class="couple-names">
+          <div><span class="name-initial">F</span><h3>Francis</h3><p>The Groom</p></div>
+          <span class="ampersand">&</span>
+          <div><span class="name-initial">M</span><h3>Mabel</h3><p>The Bride</p></div>
+        </div>
+        <button class="primary-button" data-next="story">Our Journey <span>→</span></button>
+      </div>
+    </section>
+
+    <section class="screen" id="story">
+      <div class="content-card">
+        <p class="eyebrow">A BEAUTIFUL BEGINNING</p>
+        <h2>Our <em>Love Story</em></h2>
+        <div class="story-decoration">∞</div>
+        <p class="body-copy">Two lives, two dreams, and one beautiful journey. Every moment has led us here, ready to make a promise to love, cherish, and stand beside each other through all of life's seasons.</p>
+        <p class="script-note">And so, our forever begins...</p>
+        <button class="primary-button" data-next="details">Wedding Details <span>→</span></button>
+      </div>
+    </section>
+
+    <section class="screen" id="details">
+      <div class="content-card">
+        <p class="eyebrow">SAVE THE DATE</p>
+        <h2>The <em>Wedding Day</em></h2>
+        <div class="date-panel">
+          <span>FRIDAY</span>
+          <strong>30</strong>
+          <span>OCTOBER 2026</span>
+        </div>
+        <p class="event-time">Ceremony begins at <strong>10:00 AM</strong></p>
+        <div class="small-divider"></div>
+        <p class="eyebrow">COUNTING DOWN TO FOREVER</p>
+        <div class="countdown">
+          <div><strong id="days">000</strong><span>Days</span></div>
+          <div><strong id="hours">00</strong><span>Hours</span></div>
+          <div><strong id="minutes">00</strong><span>Minutes</span></div>
+          <div><strong id="seconds">00</strong><span>Seconds</span></div>
+        </div>
+        <button class="primary-button" data-next="location">Find the Venue <span>→</span></button>
+      </div>
+    </section>
+
+    <section class="screen" id="location">
+      <div class="content-card">
+        <p class="eyebrow">WE SAVED YOU A SEAT</p>
+        <h2>Meet Us <em>There</em></h2>
+        <div class="location-art"><span>⌖</span></div>
+        <h3 class="venue-name">Agyementi</h3>
+        <p class="body-copy">Near Kitase, Eastern Region, Ghana</p>
+        <a class="primary-button link-button" href="https://www.google.com/maps/dir/?api=1&amp;destination=5.794752%2C-0.1962144" target="_blank" rel="noopener noreferrer">Get Directions ↗</a>
+        <p class="small-note">Friday, 30 October 2026 · 10:00 AM</p>
+        <button class="secondary-button" data-next="rsvp">Respond to Invitation</button>
+      </div>
+    </section>
+
+    <section class="screen" id="rsvp">
+      <div class="content-card">
+        <p class="eyebrow">YOUR PRESENCE IS A GIFT</p>
+        <h2>Kindly <em>RSVP</em></h2>
+        <p class="body-copy">Please let us know if you will be joining us on our special day.</p>
+        <label for="guest-name">Your full name</label>
+        <input type="text" id="guest-name" placeholder="Enter your name" autocomplete="name" maxlength="100">
+        <div class="rsvp-actions">
+          <button class="primary-button" data-rsvp="accept">Joyfully Accept ✓</button>
+          <button class="secondary-button" data-rsvp="decline">Regretfully Decline</button>
+        </div>
+        <p class="small-note">Your response will be prepared in WhatsApp for you to send.</p>
+      </div>
+    </section>
+
+    <section class="screen" id="farewell">
+      <div class="content-card">
+        <p class="eyebrow">WITH ALL OUR LOVE</p>
+        <div class="ornament">F <span>&</span> M</div>
+        <h2>Thank <em>You</em></h2>
+        <p class="body-copy" id="farewell-message">Thank you for being part of our special celebration.</p>
+        <p class="script-note">Love is the beginning of everything.</p>
+        <button class="secondary-button" data-next="welcome">Back to Beginning</button>
+      </div>
+    </section>
+  </main>
+
+  <button id="music-toggle" class="music-toggle" type="button" aria-label="Play wedding music" aria-pressed="false">
+    <span class="music-symbol">♫</span><span id="music-status">Music Off</span>
+  </button>
+
+  <audio id="wedding-music" src="music/romantic.mp3" loop preload="none"></audio>
+  <footer>MADE WITH LOVE · FRANCIS & MABEL · 2026</footer>
+</body>
+</html>
