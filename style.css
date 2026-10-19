@@ -1,0 +1,492 @@
+
+:root {
+  --cream: #f8f1e7;
+  --paper: #fffdf8;
+  --peach: #e9bca4;
+  --orange: #a95e3e;
+  --green: #59634a;
+  --dark: #352d27;
+  --muted: #82766b;
+  --border: #e6d9ca;
+  --shadow: 0 24px 70px rgba(69, 48, 31, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 10% 10%, rgba(233, 188, 164, 0.3), transparent 38%),
+    radial-gradient(ellipse at 90% 85%, rgba(89, 99, 74, 0.13), transparent 35%),
+    var(--cream);
+  color: var(--dark);
+  font-family: "Poppins", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  cursor: pointer;
+}
+
+.screen {
+  display: none;
+  min-height: calc(100vh - 65px);
+  padding: 44px 20px;
+  align-items: center;
+  justify-content: center;
+  animation: appear 0.65s ease both;
+}
+
+.screen.active {
+  display: flex;
+}
+
+.welcome-card,
+.content-card {
+  position: relative;
+  width: min(100%, 650px);
+  padding: clamp(30px, 7vw, 68px);
+  overflow: hidden;
+  text-align: center;
+  background: rgba(255, 253, 248, 0.88);
+  border: 1px solid rgba(169, 94, 62, 0.22);
+  border-radius: 4px;
+  box-shadow: var(--shadow);
+}
+
+.welcome-card::before,
+.content-card::before {
+  position: absolute;
+  inset: 9px;
+  border: 1px solid rgba(169, 94, 62, 0.14);
+  content: "";
+  pointer-events: none;
+}
+
+.eyebrow {
+  margin: 0 0 20px;
+  color: var(--green);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  line-height: 1.8;
+}
+
+.ornament {
+  margin: 5px 0 15px;
+  color: var(--orange);
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(42px, 10vw, 70px);
+  line-height: 1;
+}
+
+.ornament span,
+h1 span,
+h2 em {
+  color: var(--orange);
+  font-style: italic;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 500;
+}
+
+h1 {
+  margin: 10px 0 18px;
+  font-size: clamp(46px, 9vw, 76px);
+  line-height: 1.05;
+}
+
+h2 {
+  margin: 0 0 22px;
+  font-size: clamp(38px, 7vw, 54px);
+  line-height: 1.1;
+}
+
+h3 {
+  margin: 8px 0;
+  font-size: 32px;
+}
+
+.welcome-copy,
+.body-copy {
+  max-width: 430px;
+  margin: 0 auto 20px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 2;
+}
+
+.date-line {
+  margin: 20px 0 28px;
+  color: var(--green);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+.small-divider {
+  width: 65px;
+  height: 1px;
+  margin: 24px auto;
+  background: var(--peach);
+}
+
+.primary-button,
+.secondary-button {
+  display: inline-flex;
+  position: relative;
+  min-height: 48px;
+  padding: 13px 24px;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  border: 1px solid var(--orange);
+  border-radius: 2px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.primary-button {
+  background: var(--orange);
+  color: white;
+}
+
+.secondary-button {
+  background: transparent;
+  color: var(--orange);
+}
+
+.primary-button:hover,
+.secondary-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(169, 94, 62, 0.16);
+}
+
+.primary-button:hover {
+  background: #88472e;
+}
+
+.secondary-button:hover {
+  background: var(--orange);
+  color: white;
+}
+
+.bottom-note,
+.small-note {
+  position: relative;
+  margin: 26px 0 0;
+  color: #9b8c7e;
+  font-size: 10px;
+  line-height: 1.8;
+}
+
+.couple-names {
+  display: flex;
+  margin: 30px 0;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(14px, 6vw, 45px);
+}
+
+.couple-names > div {
+  flex: 1;
+}
+
+.name-initial {
+  display: grid;
+  width: 76px;
+  height: 76px;
+  margin: 0 auto 12px;
+  place-items: center;
+  border: 1px solid var(--peach);
+  border-radius: 50%;
+  color: var(--orange);
+  font-family: "Cormorant Garamond", serif;
+  font-size: 40px;
+}
+
+.couple-names h3 {
+  margin: 8px 0 0;
+  font-size: clamp(26px, 5vw, 36px);
+}
+
+.couple-names p {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.ampersand {
+  color: var(--orange);
+  font-family: "Cormorant Garamond", serif;
+  font-size: 38px;
+  font-style: italic;
+}
+
+.story-decoration {
+  margin: 12px 0;
+  color: var(--peach);
+  font-family: "Cormorant Garamond", serif;
+  font-size: 82px;
+  line-height: 1;
+}
+
+.script-note {
+  margin: 24px 0;
+  color: var(--green);
+  font-family: "Cormorant Garamond", serif;
+  font-size: 25px;
+  font-style: italic;
+}
+
+.date-panel {
+  display: flex;
+  width: min(100%, 250px);
+  margin: 25px auto;
+  padding: 20px;
+  flex-direction: column;
+  gap: 7px;
+  border-top: 1px solid var(--peach);
+  border-bottom: 1px solid var(--peach);
+  color: var(--green);
+  font-size: 10px;
+  letter-spacing: 3px;
+}
+
+.date-panel strong {
+  color: var(--orange);
+  font-family: "Cormorant Garamond", serif;
+  font-size: 82px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.event-time {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.event-time strong {
+  color: var(--dark);
+}
+
+.countdown {
+  display: grid;
+  margin: 24px 0 32px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.countdown > div {
+  display: flex;
+  padding: 15px 4px;
+  flex-direction: column;
+  gap: 7px;
+  border: 1px solid var(--border);
+  background: rgba(248, 241, 231, 0.6);
+}
+
+.countdown strong {
+  color: var(--orange);
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(26px, 5vw, 38px);
+  font-weight: 500;
+}
+
+.countdown span {
+  color: var(--muted);
+  font-size: 9px;
+}
+
+.location-art {
+  display: grid;
+  width: 100px;
+  height: 100px;
+  margin: 20px auto;
+  place-items: center;
+  border: 1px solid var(--peach);
+  border-radius: 50%;
+  color: var(--orange);
+  font-size: 46px;
+}
+
+.venue-name {
+  margin: 10px 0;
+  color: var(--dark);
+  font-size: 37px;
+}
+
+.link-button {
+  margin-top: 10px;
+}
+
+.secondary-button[data-next="rsvp"] {
+  display: flex;
+  width: fit-content;
+  margin: 22px auto 0;
+}
+
+label {
+  display: block;
+  margin: 24px 0 8px;
+  color: var(--green);
+  text-align: left;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+#guest-name {
+  display: block;
+  position: relative;
+  width: 100%;
+  min-height: 48px;
+  padding: 13px 14px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  outline: none;
+  background: white;
+  color: var(--dark);
+  font-size: 13px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#guest-name:focus {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px rgba(169, 94, 62, 0.1);
+}
+
+.rsvp-actions {
+  display: flex;
+  margin-top: 18px;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rsvp-actions button {
+  width: 100%;
+}
+
+.music-toggle {
+  display: flex;
+  position: fixed;
+  z-index: 10;
+  right: 18px;
+  bottom: 18px;
+  min-height: 43px;
+  padding: 10px 15px;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid rgba(169, 94, 62, 0.35);
+  border-radius: 30px;
+  background: rgba(255, 253, 248, 0.94);
+  box-shadow: 0 5px 22px rgba(53, 45, 39, 0.1);
+  color: var(--green);
+  font-size: 10px;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+}
+
+.music-symbol {
+  color: var(--orange);
+  font-size: 18px;
+}
+
+.music-toggle[aria-pressed="true"] .music-symbol {
+  animation: musicPulse 1.2s ease infinite;
+}
+
+footer {
+  padding: 20px 12px 28px;
+  color: #9b8c7e;
+  text-align: center;
+  font-size: 9px;
+  letter-spacing: 2px;
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes musicPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.18); }
+}
+
+@media (max-width: 480px) {
+  .screen {
+    min-height: calc(100vh - 60px);
+    padding: 24px 14px;
+  }
+
+  .welcome-card,
+  .content-card {
+    padding: 38px 24px;
+  }
+
+  .eyebrow {
+    letter-spacing: 2px;
+  }
+
+  .couple-names {
+    gap: 10px;
+  }
+
+  .name-initial {
+    width: 62px;
+    height: 62px;
+    font-size: 32px;
+  }
+
+  .countdown {
+    gap: 6px;
+  }
+
+  .countdown > div {
+    padding: 12px 2px;
+  }
+
+  .countdown span {
+    font-size: 8px;
+  }
+
+  .music-toggle {
+    right: 12px;
+    bottom: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
